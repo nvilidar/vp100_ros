@@ -98,7 +98,6 @@ typedef struct
 	bool     packageHas0CAngle;    //is 0 
 	uint16_t package0CIndex;   		//is 0 index 
 	uint64_t packageStamp;		   //time stamp  
-	double   packageLastPointAngle;	//angle with last point 
 }Nvilidar_PointViewerPackageInfoTypeDef;
 
 //circle data  

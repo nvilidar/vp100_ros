@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "nvilidar_process.h"
+#include "mysignal.h"
 
 
 using namespace std;
@@ -23,14 +24,14 @@ int main()
 	fflush(stdout);
 
 	//init signal,for ctrl+c
-	nvilidar::sigInit();
+	vp100_lidar::sigInit();
 
 	//introduce 
 	printf("Current sdk supports vp100 lidar \n");
 	printf("the srialport baudrate can be 115200bps or 230400bps\n");
 
 
-	nvilidar::LidarProcess lidar("/dev/nvilidar",512000);
+	vp100_lidar::LidarProcess lidar("/dev/ttyUSB0",115200);
 
 	//init lidar,include sync lidar para 
 	if (false == lidar.LidarInitialialize())		
@@ -42,7 +43,7 @@ int main()
 	bool ret = lidar.LidarTurnOn();
 
 	//point data analysis 
-	while (ret && (nvilidar::isOK()))
+	while (ret && (vp100_lidar::isOK()))
 	{
 		LidarScan scan;
 
@@ -56,25 +57,25 @@ int main()
 					//float dis = scan.points.at(i).range;
 					//printf("a:%f,d:%f\n", angle, dis);
 				}
-				nvilidar::console.message("Scan received[%llu]: %u ranges is [%f]Hz",
+				vp100_lidar::console.message("Scan received[%llu]: %u ranges is [%f]Hz",
 					scan.stamp, (unsigned int)scan.points.size(),
 					1.0 / scan.config.scan_time);
 			}
 			else 
 			{
-				nvilidar::console.warning("Lidar Data Invalid!");
+				vp100_lidar::console.warning("Lidar Data Invalid!");
 			}
 		}
 		else
 		{
-			nvilidar::console.error("Failed to get Lidar Data!");
+			vp100_lidar::console.error("Failed to get Lidar Data!");
 			break;
 		}
 
 		delayMS(5);		//add sleep,otherwise high cpu 
 	}
 	lidar.LidarTurnOff();       //stop scan 
-	nvilidar::console.message("Lidar is Stopping......");
+	vp100_lidar::console.message("Lidar is Stopping......");
 	lidar.LidarCloseHandle();   //close connect 
 
 	delayMS(100);

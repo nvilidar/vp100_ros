@@ -233,6 +233,8 @@ namespace vp100_lidar
 	void LidarDriverSerialport::PointDataUnpack(uint8_t *buf,uint16_t len){
 		static Nvilidar_PointViewerPackageInfoTypeDef  pack_info;        //pack info 
 		static Nvilidar_Node_Package_Union			   pack_buf_union;	 //pack buf info  
+		static double  pack_last_angle_no_qua = 0;
+		static double  pack_last_angle_has_qua = 0;
 
 		static int         recv_pos = 0;								//receive pos 
 
@@ -375,11 +377,11 @@ namespace vp100_lidar
 								pack_info.packagePoints[j].angle = cur_angle;
 								pack_info.packagePoints[j].quality = cur_quality;
 								//judge it is angle 0
-								if(cur_angle < pack_info.packageLastPointAngle){
+								if(cur_angle < pack_last_angle_has_qua){
 									pack_info.packageHas0CAngle = true;
 									pack_info.package0CIndex = j;
 								}
-								pack_info.packageLastPointAngle = cur_angle;
+								pack_last_angle_has_qua = cur_angle;
 							}
 
 							//get timestamp 
@@ -453,11 +455,11 @@ namespace vp100_lidar
 								pack_info.packagePoints[j].angle = cur_angle;
 								pack_info.packagePoints[j].quality = 0;		//do not has quality 
 								//judge it is angle 0
-								if(cur_angle < pack_info.packageLastPointAngle){
+								if(cur_angle < pack_last_angle_no_qua){
 									pack_info.packageHas0CAngle = true;
-									pack_info.package0CIndex = j;
+								 	pack_info.package0CIndex = j;
 								}
-								pack_info.packageLastPointAngle = cur_angle;
+								pack_last_angle_no_qua = cur_angle;
 							}
 
 							//get timestamp 
@@ -541,6 +543,7 @@ namespace vp100_lidar
 			curr_circle_count = 0;
 
 			//get time stamp 
+			circleDataInfo.startStamp = circleDataInfo.stopStamp;
 			circleDataInfo.stopStamp = pack_point.packageStamp;
 			//按比例重算结束时间 因为一包固定128点 0位可能出在任意位置  会影响时间戳精确度 
 			//printf("pack_num:%d,indx:%d\r\n", circleDataInfo.lidarCircleNodePoints.size(), pack_point.package0CIndex);
