@@ -14,7 +14,7 @@
 	#include <signal.h>
 #endif 
 
-namespace nvilidar
+namespace vp100_lidar
 {
 	bool nvilidar_running_state = true;
 

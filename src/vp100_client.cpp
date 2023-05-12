@@ -18,7 +18,7 @@ void scanCallback(const sensor_msgs::LaserScan::ConstPtr& scan)
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "nvilidar_client");
+    ros::init(argc, argv, "vp100_client");
     ros::NodeHandle n;
     ros::Subscriber sub = n.subscribe<sensor_msgs::LaserScan>("/scan", 1000, scanCallback);
     ros::spin();

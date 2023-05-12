@@ -8,7 +8,7 @@
 #include <istream> 
 #include <sstream>
 
-namespace nvilidar
+namespace vp100_lidar
 {
 	LidarProcess::LidarProcess(std::string serialport_name,uint32_t baudrate)
 	{
@@ -79,7 +79,7 @@ namespace nvilidar
 					else 
 					{
 						auto_reconnect_times ++;
-						nvilidar::console.warning("Auto Reconnect %d......",auto_reconnect_times);
+						vp100_lidar::console.warning("Auto Reconnect %d......",auto_reconnect_times);
 					}
 				}	
 			}
@@ -146,13 +146,13 @@ namespace nvilidar
 		//data to filter 
 		if (cfg.ignore_array.size() % 2)
 		{
-			nvilidar::console.error("ignore array is odd need be even");
+			vp100_lidar::console.error("ignore array is odd need be even");
 		}
 		for (uint16_t i = 0; i < cfg.ignore_array.size(); i++)
 		{
 			if (cfg.ignore_array[i] < -180.0 && cfg.ignore_array[i] > 180.0)
 			{
-				nvilidar::console.error("ignore array should be between 0 and 360");
+				vp100_lidar::console.error("ignore array should be between 0 and 360");
 			}
 		}
 
@@ -179,7 +179,6 @@ namespace nvilidar
 		cfg.range_min = 0;
 		cfg.aim_speed = 10.0;				//10Hz
 		cfg.sampling_rate = 10;				//10k
-		cfg.sensitive = false;				//default dont't use sensitive 
 		cfg.angle_offset_change_flag = false;	//change angle offset flag
 		cfg.angle_offset = 0.0;				//angle offset 
 		cfg.ignore_array_string = "";		//filter some angle 
@@ -190,13 +189,13 @@ namespace nvilidar
 	//==========================get serialport list=======================================
 	std::string LidarProcess::LidarGetSerialList(){
 		std::string port;       
-		std::vector<NvilidarSerialPortInfo> ports = nvilidar::LidarDriverSerialport::getPortList();      
+		std::vector<NvilidarSerialPortInfo> ports = vp100_lidar::LidarDriverSerialport::getPortList();      
 		std::vector<NvilidarSerialPortInfo>::iterator it;
 
 		//列表信息
 		if (ports.empty())
 		{
-			nvilidar::console.show("Not Lidar was detected.");
+			vp100_lidar::console.show("Not Lidar was detected.");
 			return 0;
 		}
 		else if (1 == ports.size())
@@ -209,12 +208,12 @@ namespace nvilidar
 			int id = 0;
 			for (it = ports.begin(); it != ports.end(); it++)
 			{
-				nvilidar::console.show("%d. %s  %s\n", id, it->portName.c_str(), it->description.c_str());
+				vp100_lidar::console.show("%d. %s  %s\n", id, it->portName.c_str(), it->description.c_str());
 				id++;
 			}
 			while (1)
 			{
-				nvilidar::console.show("Please select the lidar port:");
+				vp100_lidar::console.show("Please select the lidar port:");
 				std::string number;
 				std::cin >> number;
 

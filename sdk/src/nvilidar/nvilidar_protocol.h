@@ -85,53 +85,6 @@ union Nvilidar_Node_Package_Union{
     Nvilidar_Node_Package_No_Quality no_quality;    //不带信号质量 
 };
 
-//设备信息
-struct Nvilidar_Protocol_DeviceInfo {
-    // uint8_t SW_V[2];            //软件版本号
-    // uint8_t HW_V[2];            //硬件版本号
-    // uint8_t MODEL_NUM[5];       //雷达型号
-    // uint8_t serialnum[16];      //序列号
-};
-
-//应答时的数据结构模式
-struct Nvilidar_ProtocolHeader {
-  uint8_t  startByte;           //起始命令 1byte
-  uint8_t  cmd;                 //命令字   1Byte
-  uint16_t length;              //长度    2byte
-};
-
-//应答时的数据结构模式
-struct Nvilidar_ProtocolTail {
-  // uint8_t  crc;                 //校验   1Byte
-  // uint8_t  endByte;             //结尾   1byte
-};
-
-//应答数据信息 
-struct Nvilidar_Protocol_NormalResponseData
-{
-	// uint8_t  cmd;                 //命令字   1Byte
-	// uint16_t length;              //长度    2byte
-	// uint8_t	 dataInfo[1024];	//1k ram 
-};
-
-//雷达配置信息
-//struct Nvilidar_CfgInfo      
-//{
-//    uint16_t sensitivity;       //灵敏度
-//    uint16_t laserLight;        //雷达亮度
-//    uint32_t samplingRate;      //采样率
-//};
-
-//读雷达信息模式
-struct Nvilidar_Protocol_GetPara
-{
-  // uint16_t  apdValue;           //Apd值
-  // uint32_t  samplingRate;       //采样率
-  // uint16_t  aimSpeed;           //目标转速
-  // uint8_t   tailingLevel;         //拖尾等级
-  // uint8_t   hasSensitive;       //是否有信号质量
-};
-
 #pragma pack(pop)
 
 

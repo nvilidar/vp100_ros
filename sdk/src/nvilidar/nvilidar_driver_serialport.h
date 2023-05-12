@@ -42,7 +42,7 @@ typedef struct
 	#define NVILIDAR_DRIVER_SERIAL_API
 #endif // ifdef WIN32
 
-namespace nvilidar
+namespace vp100_lidar
 {
     //lidar driver 
 	class  NVILIDAR_DRIVER_SERIAL_API LidarDriverSerialport

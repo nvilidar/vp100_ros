@@ -6,13 +6,13 @@
 #include "nvilidar_process.h"
 #include "nvilidar_def.h"
 
-using namespace nvilidar;
-#define ROSVerision "1.0.9"
+using namespace vp100_lidar;
+#define ROSVerision "1.0.1"
 
 
 int main(int argc, char * argv[]) 
 {
-    ros::init(argc, argv, "nvilidar_node"); 
+    ros::init(argc, argv, "vp100_node"); 
     printf(" _   ___      _______ _      _____ _____          _____ \n");
     printf("| \\ | \\ \\    / /_   _| |    |_   _|  __ \\   /\\   |  __ \\\n");
     printf("|  \\| |\\ \\  / /  | | | |      | | | |  | | /  \\  | |__) |\n");
@@ -42,13 +42,12 @@ int main(int argc, char * argv[])
     nh_private.param<double>("range_min", cfg.range_min , 0.001);
     nh_private.param<double>("aim_speed", cfg.aim_speed , 10.0);
     nh_private.param<int>("sampling_rate", cfg.sampling_rate, 10000);
-    nh_private.param<bool>("sensitive",      cfg.sensitive, false);
     nh_private.param<bool>("angle_offset_change_flag",cfg.angle_offset_change_flag,false);
     nh_private.param<double>("angle_offset",  cfg.angle_offset, 0.0);
     nh_private.param<std::string>("ignore_array_string",  cfg.ignore_array_string, "");
 
     //choice use serialport or socket 
-    nvilidar::LidarProcess laser(cfg.serialport_name,cfg.serialport_baud);
+    vp100_lidar::LidarProcess laser(cfg.serialport_name,cfg.serialport_baud);
 
     //reload lidar parameter 
     laser.LidarReloadPara(cfg);

@@ -61,7 +61,6 @@ typedef struct
 	double		range_min;				//measure distance min value for lidar  
 	double 		aim_speed;				//lidar aim speed   
 	int			sampling_rate;			//sampling rate  
-	bool		sensitive;				//is contain sensitive  
 	bool 		angle_offset_change_flag;  //is enable to change angle offset 
 	double 		angle_offset;			//angle offset 
 

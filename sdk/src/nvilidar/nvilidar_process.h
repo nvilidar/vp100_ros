@@ -20,7 +20,7 @@
 	#define NVILIDAR_API
 #endif // ifdef WIN32
 
-namespace nvilidar
+namespace vp100_lidar
 {
     //lidar driver 
 	class  NVILIDAR_API LidarProcess

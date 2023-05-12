@@ -6,7 +6,7 @@
 #include "mytimer.h"
 #include "mystring.h"
 
-namespace nvilidar
+namespace vp100_lidar
 {
 	LidarDriverSerialport::LidarDriverSerialport(){
 		lidar_state.m_CommOpen = false;          
@@ -38,7 +38,7 @@ namespace nvilidar
 
 		//start to connect serialport 
 		if (!LidarConnect(lidar_cfg.serialport_name, lidar_cfg.serialport_baud)){
-			nvilidar::console.error("NVILIDAR Connect Serialport failed!");
+			vp100_lidar::console.error("NVILIDAR Connect Serialport failed!");
 			return false;		//serialport connect fail 
 		}
 
@@ -56,7 +56,7 @@ namespace nvilidar
 	bool LidarDriverSerialport::LidarTurnOn(){
 		m_run_circles = 0;
 		//success 
-		nvilidar::console.message("[NVILIDAR INFO] Now NVILIDAR is scanning ......");
+		vp100_lidar::console.message("[NVILIDAR INFO] Now NVILIDAR is scanning ......");
 
 		return true;
 	}

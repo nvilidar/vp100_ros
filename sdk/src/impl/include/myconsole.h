@@ -26,7 +26,7 @@
 
 using namespace std;
 
-namespace nvilidar
+namespace vp100_lidar
 {
 
 #define COLOR_NONE "\033[m"
