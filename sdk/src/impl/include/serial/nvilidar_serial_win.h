@@ -38,7 +38,7 @@
 #define FlowHardware  1 ///< Hardware(RTS / CTS) flow control 
 #define FlowSoftware  2  ///< Software(XON / XOFF) flow control 
 
-namespace nvilidar_serial
+namespace vp100_serial
 {
     class NVILIDAR_SERIAL_API Nvilidar_Serial
     {

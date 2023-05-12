@@ -21,7 +21,7 @@ static std::wstring stringToWString(const std::string &str)
 	return ret;
 }
 
-namespace nvilidar_serial
+namespace vp100_serial
 { 
 	Nvilidar_Serial::Nvilidar_Serial()
     {

@@ -91,7 +91,7 @@ namespace vp100_lidar
 
 			//----------------------serialport---------------------------
 
-			nvilidar_serial::Nvilidar_Serial serialport;
+			vp100_serial::Nvilidar_Serial serialport;
 
 			//----------------------value ----------------------------
 			Nvilidar_UserConfigTypeDef     lidar_cfg;				//lidar config data 

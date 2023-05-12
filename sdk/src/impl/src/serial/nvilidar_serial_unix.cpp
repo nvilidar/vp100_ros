@@ -12,7 +12,7 @@
 #include <linux/serial.h>
 #include <sys/ioctl.h> //ioctl
 
-namespace nvilidar_serial
+namespace vp100_serial
 {
     // linux/include/uapi/asm-generic/termbits.h
     struct termios2 {
