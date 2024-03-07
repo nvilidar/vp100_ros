@@ -102,8 +102,8 @@ you also can with this:
 | angle_max  | lidar angle min value,min:-180.0°|
 | range_max  | lidar's max measure distance,default:64.0 meters|
 | range_min  | lidar's min measure distance,default:0.0 meters|
-| aim_speed  | lidar's run speed,default:10.0 Hz|
-| sampling_rate  | lidar's sampling rate,default:10.0 K points in 1 second|
+| aim_speed  | lidar's run speed,default:6.0 Hz|
+| sampling_rate  | lidar's sampling rate,default:3.0 K points in 1 second|
 | angle_offset_change_flag  | angle offset enable to set,default:false|
 | angle_offset  | angle offset,default:0.0|
 | ignore_array_string  | if you want to filter some point's you can change it,it is anti-clockwise for the lidar.eg. you can set the value "30,60,90,120",you can remove the 30°-60° and 90°-120° points in the view|

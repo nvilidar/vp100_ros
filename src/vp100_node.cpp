@@ -7,7 +7,7 @@
 #include "nvilidar_def.h"
 
 using namespace vp100_lidar;
-#define ROSVerision "1.0.1"
+#define ROSVerision "1.0.2"
 
 
 int main(int argc, char * argv[]) 
@@ -40,8 +40,8 @@ int main(int argc, char * argv[])
     nh_private.param<double>("angle_min", cfg.angle_min , -180.0);
     nh_private.param<double>("range_max", cfg.range_max , 64.0);
     nh_private.param<double>("range_min", cfg.range_min , 0.001);
-    nh_private.param<double>("aim_speed", cfg.aim_speed , 10.0);
-    nh_private.param<int>("sampling_rate", cfg.sampling_rate, 10000);
+    nh_private.param<double>("aim_speed", cfg.aim_speed , 6.0);
+    nh_private.param<int>("sampling_rate", cfg.sampling_rate, 3.0);
     nh_private.param<bool>("angle_offset_change_flag",cfg.angle_offset_change_flag,false);
     nh_private.param<double>("angle_offset",  cfg.angle_offset, 0.0);
     nh_private.param<std::string>("ignore_array_string",  cfg.ignore_array_string, "");
