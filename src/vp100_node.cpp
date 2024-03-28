@@ -5,9 +5,17 @@
 #include "sensor_msgs/LaserScan.h"
 #include "nvilidar_process.h"
 #include "nvilidar_def.h"
+#include "mytimer.hpp"
 
 using namespace vp100_lidar;
-#define ROSVerision "1.0.2"
+#define ROSVerision "1.0.3"
+
+//get stamp 
+uint64_t  get_stamp_callback(){
+    uint64_t current_time = 0;
+    current_time = ros::Time::now().sec * 1e9 + ros::Time::now().nsec;
+	return current_time;
+}
 
 
 int main(int argc, char * argv[]) 
@@ -45,9 +53,10 @@ int main(int argc, char * argv[])
     nh_private.param<bool>("angle_offset_change_flag",cfg.angle_offset_change_flag,false);
     nh_private.param<double>("angle_offset",  cfg.angle_offset, 0.0);
     nh_private.param<std::string>("ignore_array_string",  cfg.ignore_array_string, "");
+    nh_private.param<bool>("log_enable_flag", cfg.log_enable_flag,true);
 
     //choice use serialport or socket 
-    vp100_lidar::LidarProcess laser(cfg.serialport_name,cfg.serialport_baud);
+    vp100_lidar::LidarProcess laser(cfg.serialport_name,cfg.serialport_baud,get_stamp_callback,1e9);
 
     //reload lidar parameter 
     laser.LidarReloadPara(cfg);
@@ -81,8 +90,8 @@ int main(int argc, char * argv[])
                 sensor_msgs::LaserScan scan_msg;
                 ros::Time start_scan_time;
                 int avaliable_count = 0;
-                start_scan_time.sec = scan.stamp/1000000000ul;
-                start_scan_time.nsec = scan.stamp%1000000000ul;
+                start_scan_time.sec = scan.stamp_start/1000000000ul;
+                start_scan_time.nsec = scan.stamp_start%1000000000ul;
                 scan_msg.header.stamp = start_scan_time;
                 scan_msg.header.frame_id = cfg.frame_id;
                 scan_msg.angle_min =(scan.config.min_angle);

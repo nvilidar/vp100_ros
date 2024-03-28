@@ -14,10 +14,6 @@ find_package(catkin REQUIRED COMPONENTS
 set(SDK_PATH "./sdk/")
 
 FILE(GLOB SDK_SRC 
-  "${SDK_PATH}/src/impl/*.h"
-  "${SDK_PATH}/src/impl/include/*.h"
-  "${SDK_PATH}/src/impl/include/serial/*.h"
-  "${SDK_PATH}/src/nvilidar/*.h"
   "${SDK_PATH}/src/impl/src/serial/*.cpp"
   "${SDK_PATH}/src/nvilidar/*.cpp"
 )
@@ -29,6 +25,7 @@ include_directories(
   ${PROJECT_SOURCE_DIR}/src
   ${PROJECT_SOURCE_DIR}/sdk/src/nvilidar
   ${PROJECT_SOURCE_DIR}/sdk/src/impl/include
+  ${PROJECT_SOURCE_DIR}/sdk/src/3rdparty/include
 )
 
 add_executable(vp100_node src/vp100_node.cpp  ${SDK_SRC})

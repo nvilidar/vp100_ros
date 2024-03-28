@@ -107,3 +107,4 @@ you also can with this:
 | angle_offset_change_flag  | angle offset enable to set,default:false|
 | angle_offset  | angle offset,default:0.0|
 | ignore_array_string  | if you want to filter some point's you can change it,it is anti-clockwise for the lidar.eg. you can set the value "30,60,90,120",you can remove the 30°-60° and 90°-120° points in the view|
+| log_enable_flag  | if you want to write log to file,you must write it 'true'|

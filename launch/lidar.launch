@@ -16,6 +16,7 @@
     <param name="angle_offset_change_flag"    type="bool" value="false"/>
     <param name="angle_offset"                type="double" value="0.0" />
     <param name="ignore_array_string"         type="string" value="" />
+    <param name="log_enable_flag"             type="bool" value="true" />
   </node>
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
     args="0.19 0.0 0.2 0.06 0.0  0.0 /base_footprint /laser_frame 40" />
