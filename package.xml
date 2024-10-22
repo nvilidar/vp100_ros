@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <package>
-  <name>vp100_ros</name>
-  <version>1.0.1</version>
-  <description>The vp100 package</description>
+  <name>lidar_ros</name>
+  <version>1.0.0</version>
+  <description>The lidar ros1 package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="wangdy@nvistar.com">wangdy</maintainer>
+  <maintainer email="example@example.com">example</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>BSD</license>
+  <license>MIT</license>
 
 
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->

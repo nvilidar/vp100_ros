@@ -1,53 +1,54 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(vp100_ros)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-#add_definitions(-std=c++11) # Use C++11
+cmake_minimum_required(VERSION 2.8)
+project(lidar_ros)
 
+# set base info
+set(CMAKE_CXX_STANDARD 11)  
+set(CMAKE_CXX_STANDARD_REQUIRED ON)  
+
+#find package 
 find_package(catkin REQUIRED COMPONENTS
   rosconsole
   roscpp
   sensor_msgs
 )
 
-#add_subdirectory(sdk)
-
-set(SDK_PATH "./sdk/")
-
-FILE(GLOB SDK_SRC 
-  "${SDK_PATH}/src/impl/src/serial/*.cpp"
-  "${SDK_PATH}/src/nvilidar/*.cpp"
-)
-
+# catkin package
 catkin_package()
 
+# add include 
 include_directories(
   ${catkin_INCLUDE_DIRS}
-  ${PROJECT_SOURCE_DIR}/src
-  ${PROJECT_SOURCE_DIR}/sdk/src/nvilidar
-  ${PROJECT_SOURCE_DIR}/sdk/src/impl/include
-  ${PROJECT_SOURCE_DIR}/sdk/src/3rdparty/include
+  sdk/include
+  ros/include
 )
 
-add_executable(vp100_node src/vp100_node.cpp  ${SDK_SRC})
-add_executable(vp100_client src/vp100_client.cpp)
+# add src
+FILE(GLOB LIDAR_SDK_SRC 
+  "sdk/src/lidar/lidar_protocol.cpp"
+  "sdk/src/lidar.cpp"
+  "sdk/src/interface/console/interface_console.cpp"
+)
+if(WIN32)  
+  list(APPEND LIDAR_SDK_SRC "sdk/src/interface/serial/win/interface_serial.cpp")  
+elseif(UNIX)  
+  list(APPEND LIDAR_SDK_SRC "sdk/src/interface/serial/unix/interface_serial.cpp")  
+endif()
 
-target_link_libraries(vp100_node
-   ${catkin_LIBRARIES} 
- )
-target_link_libraries(vp100_client
-   ${catkin_LIBRARIES} 
- )
+#link client
+add_executable(lidar_client ros/src/ros_client.cpp)
+target_link_libraries(lidar_client ${catkin_LIBRARIES})
+#link node 
+add_executable(lidar_node ros/src/ros_node.cpp  ros/src/ros_convert.cpp ${LIDAR_SDK_SRC})
+target_link_libraries(lidar_node pthread ${catkin_LIBRARIES})
 
-install(TARGETS vp100_node vp100_client
+#install
+install(TARGETS lidar_node lidar_client
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
-
-
-install(DIRECTORY launch startup sdk
+install(DIRECTORY launch rules rviz
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   USE_SOURCE_PERMISSIONS
 )
-
 
