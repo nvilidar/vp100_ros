@@ -48,6 +48,7 @@ int main(int argc, char * argv[]) {
   nvistar::ROSConvert::lidar_ros_config_t config;
   std::string serial_name;
   int serial_baud;
+  int  timeout_count = 0;
   //sync para form launch 
   nh_private.param<std::string>("serial_name", serial_name, "/dev/ttyUSB0"); 
   nh_private.param<int>("serial_baud", serial_baud, 230400); 
@@ -91,24 +92,35 @@ int main(int argc, char * argv[]) {
     nvistar::lidar_scan_status_t status = _lidar->lidar_get_scandata(lidar_raw_scan);
     switch(status){
       case nvistar::LIDAR_SCAN_OK:{
+        timeout_count = 0;
         _convert->lidar_raw_to_ros(lidar_raw_scan, config, lidar_ros_scan);
         scan_pub.publish(lidar_ros_scan);
         break;
       }
       case nvistar::LIDAR_SCAN_ERROR_MOTOR_LOCK: {
+        timeout_count = 0;
         ROS_ERROR("lidar motor lock!");
         break;
       }
       case nvistar::LIDAR_SCAN_ERROR_MOTOR_SHORTCIRCUIT: {
+        timeout_count = 0;
         ROS_ERROR("lidar motor short circuit!");
         break;
       }
       case nvistar::LIDAR_SCAN_ERROR_UP_NO_POINT: {
+        timeout_count = 0;
         ROS_ERROR("lidar upboard no points!");
         break;
       }
       case nvistar::LIDAR_SCAN_TIMEOUT: {
         ROS_ERROR("lidar data timeout!");
+        //reconnect 
+        timeout_count++;
+        if(timeout_count >= 10){
+          timeout_count = 0;
+          _serial->serial_reopen();
+          ROS_ERROR("lidar serial reopen!\n");
+        }
         break;
       }
       default:{
